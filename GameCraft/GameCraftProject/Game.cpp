@@ -9,9 +9,10 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
-	block = new Block(m_world, 0, 0, WORLD_SCALE);
+	block = new Block(m_world, 400, 400, WORLD_SCALE);
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
+	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
 }
 
 /// <summary>
@@ -92,6 +93,7 @@ void Game::update(sf::Time t_deltaTime)
 			break;
 		case State::Play:
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+			m_player->update();
 			break;
 		default:
 			break;
@@ -115,6 +117,7 @@ void Game::render()
 		break;
 	case State::Play:
     block->render(m_window);
+	m_player->draw(m_window);
 		break;
 	default:
 		break;
