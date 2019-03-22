@@ -129,40 +129,6 @@ void Player::update()
 			std::cout << "Called" << std::endl;
 		}
 	}
-
-
-
-
-	//Window borders
-	if (playerSprite.getPosition().x >= 1280)
-	{
-		//playerSprite.setPosition(-100, playerSprite.getPosition().y);
-		if (velocity.x > 0)
-		{
-			velocity.x = 0;
-		}
-	}
-	if (playerSprite.getPosition().x <= 0)
-	{
-		if (velocity.x < 0)
-		{
-			velocity.x = 0;
-		}
-	}
-	if (playerSprite.getPosition().y >= 720)
-	{
-		if (velocity.y > 0)
-		{
-			velocity.y = 0;
-		}
-	}
-	if (playerSprite.getPosition().y <= 0)
-	{
-		if (velocity.y < 0)
-		{
-			velocity.y = 0;
-		}
-	}
 	previousVelY = velocity.y;
 	//Apply velocity
 	playerSprite.setPosition(m_body->GetPosition().x * Scale - WIDTH / 2, m_body->GetPosition().y * Scale - HEIGHT / 2);
