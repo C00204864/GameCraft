@@ -14,12 +14,15 @@ Game::Game() :
 	m_mainView.setCenter(m_centre);
 	m_window.setView(m_mainView);
 	block = new Block(m_world, 400, 400, WORLD_SCALE);
-	m_gameState = State::MainMenu;
+	m_gameState = State::Over;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
 	//m_timer = std::make_unique<Timer>(Timer());
 	m_timer = new Timer();
 	m_timer->start();
+
+
+	m_gameOver = new GameOver(1280, 720, *this, m_window);
 }
 
 /// <summary>
@@ -110,6 +113,10 @@ void Game::update(sf::Time t_deltaTime)
 			}
 			m_player->update();
 			break;
+		case State::Over:
+			m_gameOver->update(*m_timer);
+			m_window.setView(m_window.getDefaultView());
+			break;
 		default:
 			break;
 		}
@@ -132,6 +139,9 @@ void Game::render()
 		m_timer->render(m_window);
 		block->render(m_window);
 		m_player->draw(m_window);
+		break;
+	case State::Over:
+		m_gameOver->draw();
 		break;
 	default:
 		break;
