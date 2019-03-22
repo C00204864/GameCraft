@@ -5,7 +5,9 @@
 /// </summary>
 Game::Game() :
 	m_window{ sf::VideoMode{ 1280, 720, 32 }, "GameCraft" },
-	m_exitGame{ false } // When true game will exit
+	m_exitGame{ false },
+	m_gravity{ 0, 90.81 },
+	m_world{ m_gravity }// When true game will exit
 {
 
 }
@@ -68,6 +70,10 @@ void Game::update(sf::Time t_deltaTime)
 	if (m_exitGame)
 	{
 		m_window.close();
+	}
+	else
+	{
+		m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
 	}
 }
 

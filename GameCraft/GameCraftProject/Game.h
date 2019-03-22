@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <Box2D\Box2D.h>
 
 class Game
 {
@@ -21,6 +22,10 @@ private:
 	sf::View m_mainView;
 	sf::View m_miniMapView;
 	bool m_exitGame; // control exiting game
+
+	// Box2D
+	b2Vec2 m_gravity;
+	b2World m_world;
 };
 
 #endif // !GAME_H
