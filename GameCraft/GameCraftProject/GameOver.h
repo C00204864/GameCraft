@@ -1,5 +1,5 @@
-#ifndef MENU
-#define MENU
+#ifndef GAMEOVER_H
+#define GAMEOVER_H
 
 #include<SFML\Graphics.hpp>
 #include"Button.h"
@@ -8,20 +8,19 @@
 #include "GUI.h"
 #include<iostream>
 #include"Game.h"
+#include "Timer.h"
 
 #define MAX_ITEMS 2  //the amount of menu options
 
 class Game;
-class Collect;
 
-//main menu of the game
-class Menu
+class GameOver
 {
 public:
-	Menu(float width, float height, Game& game, sf::RenderWindow &window);
-	~Menu();
+	GameOver(float width, float height, Game& game, sf::RenderWindow &window);
+	~GameOver();
 	void draw(); //draw
-	void update();//update
+	void update(Timer timer);//update
 	bool itemSelected(); //item selected
 	void GoToPlay(); //go to playing state
 	void EndGame(); //end the game
@@ -40,7 +39,6 @@ private:
 	GUI m_gui; //gui
 	Game *m_game;
 	sf::RenderWindow &m_window;
-	Collect* m_collect;
 };
 
-#endif // !MENU
+#endif // !GAMEOVER_H

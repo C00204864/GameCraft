@@ -20,10 +20,38 @@ Game::Game() :
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+	m_collect = new Collect(200, 200);
 	srand(time(NULL));
-	//m_timer = std::make_unique<Timer>(Timer());
+
+
+	m_gameOver = new GameOver(1280, 720, *this, m_window);
+
+	// Timer
 	m_timer = new Timer();
 	m_timer->start();
+
+	// Background
+	if (!m_bgTexture.loadFromFile("Assets\\Images\\GameBackground.png"))
+	{
+		std::string s("error loading texture from file");
+		throw std::exception(s.c_str());
+	}
+
+	// Background
+	if (!m_bgTexture2.loadFromFile("Assets\\Images\\GameBackground2.png"))
+	{
+		std::string s("error loading texture from file");
+		throw std::exception(s.c_str());
+	}
+
+	m_bgSprite.setTexture(m_bgTexture);
+	m_bgSprite.setPosition(0, 0);
+	m_bgSprite.setScale(0.7f, 0.7f);
+	m_bgSprite2.setTexture(m_bgTexture2);
+	m_bgSprite2.setPosition(m_bgTexture.getSize().x * 0.7f, 0);
+	m_bgSprite2.setScale(0.7f, 0.7f);
+	m_moved = 1;
+
 }
 
 /// <summary>
@@ -106,6 +134,22 @@ void Game::update(sf::Time t_deltaTime)
 			m_window.setView(m_window.getDefaultView());
 			break;
 		case State::Play:
+			if (m_bgSprite.getPosition().x + 1920.0f < m_centre.x - 100.0f)
+			{
+				m_moved++;
+				m_bgSprite.setPosition((m_bgTexture.getSize().x * 0.7f) * m_moved, 0);
+			}
+			else if (m_bgSprite2.getPosition().x + 1920.0f < m_centre.x - 100.0f)
+			{
+				m_moved++;
+				m_bgSprite2.setPosition((m_bgTexture.getSize().x * 0.7f) * m_moved, 0);
+			}
+			m_timer->update(t_deltaTime.asMilliseconds(), m_centre.x);
+			m_mainView.setCenter(m_centre);
+			m_window.setView(m_mainView);
+			m_collect->update();
+			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+
 			if (baseDistance < maxDistance)
 			{
 				baseDistance += 0.2f;
@@ -144,6 +188,10 @@ void Game::update(sf::Time t_deltaTime)
 				}
 			}
 			break;
+		case State::Over:
+			m_gameOver->update(*m_timer);
+			m_window.setView(m_window.getDefaultView());
+			break;
 		default:
 			break;
 		}
@@ -163,12 +211,19 @@ void Game::render()
 		m_menu->draw();
 		break;
 	case State::Play:
+		m_window.draw(m_bgSprite);
+		m_window.draw(m_bgSprite2);
+		m_timer->render(m_window);
 		for (auto &b : m_blocks)
 		{
 			b->render(m_window);
 		}
 		m_timer->render(m_window);
+		m_collect->draw(m_window);
 		m_player->draw(m_window);
+		break;
+	case State::Over:
+		m_gameOver->draw();
 		break;
 	default:
 		break;

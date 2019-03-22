@@ -3,27 +3,27 @@
 
 //main menu of the game
 Menu::Menu(float width, float height, Game & game, sf::RenderWindow &window) :
-	m_label("GameCraft", 90.f, 100.f ),
+	m_label("GameCraft", 390.f, 100.f ),
 	m_game(&game),
 	m_window(window)
 {
 	m_itemSelected = false;
 	m_label.setUnderLined();
 	m_label.changeTextSize(100);
-	m_widgets[0] = new Button("Play Game", 100.f,300.f);
+	m_widgets[0] = new Button("Play Game", 475.f,300.f);
 	m_widgets[0]->getFocus();
 	m_widgets[0]->Enter = std::bind(&Menu::GoToPlay, this); //func bind
-	m_widgets[1] = new Button("End Game", 100.f, 400.f);
+	m_widgets[1] = new Button("End Game", 475.f, 400.f);
 	m_widgets[1]->Enter = std::bind(&Menu::EndGame, this); //bind
 	m_selectedItemIndex = 0; //start at top 
 
 	m_gui.vertical = true; //control scheme
 
 
-	m_widgets[0]->updateFocusColor(sf::Color(0, 255, 0, 255));
-	m_widgets[1]->updateFocusColor(sf::Color(0, 255, 0, 255));
+	m_widgets[0]->updateFocusColor(sf::Color(255, 0, 0, 255));
+	m_widgets[1]->updateFocusColor(sf::Color(255, 0, 0, 255));
 
-	if (!m_texture.loadFromFile("Assets\\Images\\background.png"))
+	if (!m_texture.loadFromFile("Assets\\Images\\background.jpg"))
 	{
 		//handle
 	}
@@ -33,6 +33,9 @@ Menu::Menu(float width, float height, Game & game, sf::RenderWindow &window) :
 
 	m_background.setTexture(m_texture);
 	m_background.setPosition(0, 0);
+	m_background.setScale(1.3f, 1.5f);
+
+	m_collect = new Collect(750, 300);
 
 	//add ui elements to gui
 	for (auto & var : m_widgets)
@@ -59,6 +62,7 @@ Draw the ui elements
 void Menu::draw()
 {
 	m_window.draw(m_background);
+	m_collect->draw(m_window);
 	m_gui.draw(m_window);
 }
 
@@ -66,7 +70,14 @@ void Menu::draw()
 void Menu::update()
 {
 
-
+	if (m_selectedItemIndex == 0)
+	{
+		m_collect->setPos(750, 300);
+	}
+	else {
+		m_collect->setPos(750, 400);
+	}
+	m_collect->update();
 	m_gui.update(m_selectedItemIndex, MAX_ITEMS);
 	m_xbox.update();
 

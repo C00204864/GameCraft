@@ -10,14 +10,20 @@
 #include "MainMenuScreen.h"
 #include "Player.h"
 #include "Timer.h"
+#include "GameOver.h"
+#include "Collect.h"
 
 class Player;
 class Menu;
+class GameOver;
+class Collect;
+
 
 enum State 
 {
 	MainMenu,
-	Play
+	Play,
+	Over
 };
 
 class Game
@@ -50,6 +56,7 @@ private:
 
 	State m_gameState;
 	Menu * m_menu;
+	GameOver * m_gameOver;
 	sf::Vector2f m_centre;
 	sf::View m_camera;
 	float CAM_SPEED = 4.0f;
@@ -57,9 +64,16 @@ private:
 	float baseDistance = 500.f;
 	float maxDistance = 750.f;
 	Player* m_player;
+	Collect* m_collect;
 
-	//std::unique_ptr<Timer> m_timer;
 	Timer * m_timer;
+
+	// Background
+	sf::Texture m_bgTexture;
+	sf::Texture m_bgTexture2;
+	sf::Sprite m_bgSprite;
+	sf::Sprite m_bgSprite2;
+	int m_moved;
 };
 
 #endif // !GAME_H

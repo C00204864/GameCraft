@@ -16,7 +16,7 @@ public:
 	void reset();
 	void penalty(int t);
 	void reward(int t);
-
+	int getTime();
 	void update(int dt, float x);
 	void render(sf::RenderWindow & window);
 
