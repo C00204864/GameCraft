@@ -14,7 +14,7 @@ Game::Game() :
 	m_mainView.setCenter(m_centre);
 	m_window.setView(m_mainView);
 	block = new Block(m_world, 400, 400, WORLD_SCALE);
-	m_gameState = State::Over;
+	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
 	//m_timer = std::make_unique<Timer>(Timer());
