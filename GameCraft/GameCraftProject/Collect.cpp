@@ -41,10 +41,13 @@ sf::Vector2f Collect::getVelocity()
 	return velocity;
 }
 
-void Collect::update()
+void Collect::update(float x)
 {
 	//Apply velocity
-
+	if (x != 0)
+	{
+		collectSprite.setPosition(sf::Vector2f(x - 170.0f, 0));
+	}
 	collectSprite.setTextureRect(sf::IntRect(68 * aniCount, 160 + 71 * aniRow, 68, 71));
 	if (aniCount < 15)
 	{

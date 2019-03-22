@@ -17,6 +17,7 @@ public:
 	float previousVelY = 0;
 
 	float Scale;
+	int aniCount = 0;
 
 private:
 	sf::Texture m_texture;

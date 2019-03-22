@@ -8,7 +8,7 @@ public:
 	Collect( float x, float y);
 	~Collect();
 	void setPos(float x,float y);
-	void update();
+	void update(float x);
 	void draw(sf::RenderWindow & window);
 	sf::Vector2f getVelocity();
 	sf::Vector2f getPlayerPosition();

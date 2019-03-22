@@ -77,7 +77,7 @@ void Menu::update()
 	else {
 		m_collect->setPos(750, 400);
 	}
-	m_collect->update();
+	m_collect->update(0);
 	m_gui.update(m_selectedItemIndex, MAX_ITEMS);
 	m_xbox.update();
 
