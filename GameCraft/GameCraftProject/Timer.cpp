@@ -66,6 +66,7 @@ void Timer::update(int dt, float x)
 			m_currentSec++;
 			if (m_currentSec >= 60)
 			{
+				m_currentSec = 0;
 				m_currentMin++;
 			}
 		}

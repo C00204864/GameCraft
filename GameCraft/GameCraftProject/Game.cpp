@@ -130,6 +130,7 @@ void Game::update(sf::Time t_deltaTime)
 		switch (m_gameState)
 		{
 		case State::MainMenu:
+			m_timer->reset();
 			m_menu->update();
 			m_window.setView(m_window.getDefaultView());
 			break;
@@ -165,6 +166,25 @@ void Game::update(sf::Time t_deltaTime)
 			{
 				// Offscreen
 				//std::cout << "Offscreen" << std::endl;
+				m_bgSprite.setPosition(0, 0);
+				m_bgSprite2.setPosition(m_bgTexture.getSize().x * 0.7f, 0);
+				m_moved = 1;
+				m_gameState = State::Over;
+				m_window.setView(m_window.getDefaultView());
+				m_mainView = m_window.getView();
+				m_centre = m_window.getView().getCenter();
+				m_mainView.setCenter(m_centre);
+				m_window.setView(m_mainView);
+				m_blocks.clear();
+
+				for (int i = 0; i < 10; i++)
+				{
+					m_blocks.push_back(new Block(m_world, (500 * i), 400, WORLD_SCALE));
+				}
+				delete m_player;
+				m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+				baseDistance = 400.f;
+				CAM_SPEED = 4.f;
 			}
 			else
 			{
