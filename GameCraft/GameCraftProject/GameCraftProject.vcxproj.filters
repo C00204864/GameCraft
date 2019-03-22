@@ -15,6 +15,7 @@
     <ClCompile Include="XBOX360CONTROLLER.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Collectable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
@@ -30,5 +31,6 @@
     <ClInclude Include="XBOX360CONTROLLER.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Collectible.h" />
   </ItemGroup>
 </Project>
