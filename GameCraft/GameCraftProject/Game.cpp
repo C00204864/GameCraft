@@ -25,6 +25,9 @@ Game::Game() :
 	//m_timer = std::make_unique<Timer>(Timer());
 	m_timer = new Timer();
 	m_timer->start();
+
+
+	m_gameOver = new GameOver(1280, 720, *this, m_window);
 }
 
 /// <summary>
@@ -129,6 +132,10 @@ void Game::update(sf::Time t_deltaTime)
 				}
 			}
 			break;
+		case State::Over:
+			m_gameOver->update(*m_timer);
+			m_window.setView(m_window.getDefaultView());
+			break;
 		default:
 			break;
 		}
@@ -156,6 +163,9 @@ void Game::render()
 		//block->render(m_window);
 		m_collect->draw(m_window);
 		m_player->draw(m_window);
+		break;
+	case State::Over:
+		m_gameOver->draw();
 		break;
 	default:
 		break;

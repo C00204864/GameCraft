@@ -16,6 +16,7 @@
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="XBOX360CONTROLLER.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Collect.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +34,7 @@
     <ClInclude Include="Widget.h" />
     <ClInclude Include="XBOX360CONTROLLER.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Collect.h" />
   </ItemGroup>
 </Project>

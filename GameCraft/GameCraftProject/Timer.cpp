@@ -87,3 +87,8 @@ void Timer::render(sf::RenderWindow & window)
 {
 	window.draw(m_text);
 }
+
+int Timer::getTime()
+{
+	return m_currentMin * 60 + m_currentSec;
+}
