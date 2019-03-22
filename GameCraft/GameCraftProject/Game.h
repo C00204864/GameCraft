@@ -3,6 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include "MainMenuScreen.h"
+
+
+class Menu;
+
+enum State 
+{
+	MainMenu,
+	Play
+};
+
 
 class Game
 {
@@ -11,6 +22,8 @@ public:
 	Game();
 	~Game();
 	void run();
+	void setGameState(State state);
+	void endGame();
 private:
 	// Private Methods
 	void processEvents();
@@ -26,6 +39,12 @@ private:
 	// Box2D
 	b2Vec2 m_gravity;
 	b2World m_world;
+
+
+	State m_gameState;
+	Menu * m_menu;
+
+
 };
 
 #endif // !GAME_H

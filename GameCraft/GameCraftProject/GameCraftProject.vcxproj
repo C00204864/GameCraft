@@ -113,11 +113,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="RadioButton.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="XBOX360CONTROLLER.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="MainMenuScreen.h" />
+    <ClInclude Include="RadioButton.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Widget.h" />
+    <ClInclude Include="XBOX360CONTROLLER.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
