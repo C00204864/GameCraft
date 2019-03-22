@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include "Block.h"
 #include "MainMenuScreen.h"
-
 
 class Menu;
 
@@ -13,7 +13,6 @@ enum State
 	MainMenu,
 	Play
 };
-
 
 class Game
 {
@@ -39,12 +38,13 @@ private:
 	// Box2D
 	b2Vec2 m_gravity;
 	b2World m_world;
+	const float WORLD_SCALE = 30.f;
 
+	// Test
+	Block * block;
 
 	State m_gameState;
 	Menu * m_menu;
-
-
 };
 
 #endif // !GAME_H
