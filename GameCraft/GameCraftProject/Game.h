@@ -47,6 +47,9 @@ private:
 
 	State m_gameState;
 	Menu * m_menu;
+	sf::Vector2f m_centre;
+	sf::View m_camera;
+	const float CAM_SPEED = 8.0f;
 	Player* m_player;
 };
 

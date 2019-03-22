@@ -9,6 +9,10 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
+	m_mainView = m_window.getView();
+	m_centre = m_window.getView().getCenter();
+	m_mainView.setCenter(m_centre);
+	m_window.setView(m_mainView);
 	block = new Block(m_world, 400, 400, WORLD_SCALE);
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
@@ -90,9 +94,16 @@ void Game::update(sf::Time t_deltaTime)
 		{
 		case State::MainMenu:
 			m_menu->update();
+			m_window.setView(m_window.getDefaultView());
 			break;
 		case State::Play:
+			m_mainView.setCenter(m_centre);
+			m_window.setView(m_mainView);
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				m_centre.x += CAM_SPEED;
+			}
 			m_player->update();
 			break;
 		default:
