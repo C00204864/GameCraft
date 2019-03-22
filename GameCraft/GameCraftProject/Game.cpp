@@ -125,6 +125,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	else
 	{
+		auto playerPos = m_player->getPlayerPosition();
 		//CAM_SPEED += 0.001f;
 		switch (m_gameState)
 		{
@@ -149,20 +150,41 @@ void Game::update(sf::Time t_deltaTime)
 			m_collect->update();
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
 
-			if (true)
+			if (baseDistance < maxDistance)
 			{
-				m_centre.x += CAM_SPEED;
+				baseDistance += 0.2f;
 			}
-			m_player->update();
-			for (int i = 0; i < m_blocks.size(); i++)
+			if (CAM_SPEED < maxCamSpeed)
 			{
-				if (m_blocks.at(i)->getPosition().x < m_centre.x - (1280 / 2) - 250)
+				CAM_SPEED += 0.01f;
+			}
+			
+			if (playerPos.y > 1500
+				|| playerPos.x < m_centre.x - 640
+				|| playerPos.x > m_centre.x + 640)
+			{
+				// Offscreen
+				//std::cout << "Offscreen" << std::endl;
+			}
+			else
+			{
+				m_timer->update(t_deltaTime.asMilliseconds(), m_centre.x);
+				m_mainView.setCenter(m_centre);
+				m_window.setView(m_mainView);
+				m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+
+				m_centre.x += CAM_SPEED;
+				m_player->update();
+				for (int i = 0; i < m_blocks.size(); i++)
 				{
-					m_blocks.at(i)->~Block();
-					m_blocks.erase(std::remove(m_blocks.begin(), m_blocks.end(), m_blocks.at(i)), m_blocks.end());
-					int random = rand() % 200 - 1;
-					random -= 100;
-					m_blocks.push_back(new Block(m_world, m_blocks.at(m_blocks.size() - 1)->getPosition().x + 800, 400 + random, WORLD_SCALE));
+					if (m_blocks.at(i)->getPosition().x < m_centre.x - (1280 / 2) - 250)
+					{
+						m_blocks.at(i)->~Block();
+						m_blocks.erase(std::remove(m_blocks.begin(), m_blocks.end(), m_blocks.at(i)), m_blocks.end());
+						int random = rand() % 200 - 1;
+						random -= 100;
+						m_blocks.push_back(new Block(m_world, m_blocks.at(m_blocks.size() - 1)->getPosition().x + baseDistance, 400 + random, WORLD_SCALE));
+					}
 				}
 			}
 			break;
@@ -196,6 +218,7 @@ void Game::render()
 		{
 			b->render(m_window);
 		}
+		m_timer->render(m_window);
 		m_collect->draw(m_window);
 		m_player->draw(m_window);
 		break;
