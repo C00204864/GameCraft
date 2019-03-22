@@ -13,10 +13,14 @@ Game::Game() :
 	m_centre = m_window.getView().getCenter();
 	m_mainView.setCenter(m_centre);
 	m_window.setView(m_mainView);
-	block = new Block(m_world, 400, 400, WORLD_SCALE);
+	for (int i = 0; i < 10; i++)
+	{
+		m_blocks.push_back(new Block(m_world, (500 * i), 400, WORLD_SCALE));
+	}
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+	srand(time(NULL));
 	//m_timer = std::make_unique<Timer>(Timer());
 	m_timer = new Timer();
 	m_timer->start();
@@ -93,6 +97,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	else
 	{
+		//CAM_SPEED += 0.001f;
 		switch (m_gameState)
 		{
 		case State::MainMenu:
@@ -104,11 +109,23 @@ void Game::update(sf::Time t_deltaTime)
 			m_mainView.setCenter(m_centre);
 			m_window.setView(m_mainView);
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+
+			if (true)
 			{
 				m_centre.x += CAM_SPEED;
 			}
 			m_player->update();
+			for (int i = 0; i < m_blocks.size(); i++)
+			{
+				if (m_blocks.at(i)->getPosition().x < m_centre.x - (1280 / 2) - 250)
+				{
+					m_blocks.at(i)->~Block();
+					m_blocks.erase(std::remove(m_blocks.begin(), m_blocks.end(), m_blocks.at(i)), m_blocks.end());
+					int random = rand() % 200 - 1;
+					random -= 100;
+					m_blocks.push_back(new Block(m_world, m_blocks.at(m_blocks.size() - 1)->getPosition().x + 800, 400 + random, WORLD_SCALE));
+				}
+			}
 			break;
 		default:
 			break;
@@ -129,6 +146,10 @@ void Game::render()
 		m_menu->draw();
 		break;
 	case State::Play:
+		for (auto &b : m_blocks)
+		{
+			b->render(m_window);
+		}
 		m_timer->render(m_window);
 		block->render(m_window);
 		m_player->draw(m_window);
