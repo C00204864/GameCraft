@@ -110,8 +110,6 @@ void Game::update(sf::Time t_deltaTime)
 			break;
 		}
 
-
-		
 	}
 }
 
