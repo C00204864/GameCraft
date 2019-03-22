@@ -3,15 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
 #include "Block.h"
 #include "MainMenuScreen.h"
 #include "Player.h"
 #include "Timer.h"
 #include "GameOver.h"
+#include "Collect.h"
 
 class Player;
 class Menu;
 class GameOver;
+class Collect;
+
 
 enum State 
 {
@@ -46,16 +52,16 @@ private:
 	b2World m_world;
 	const float WORLD_SCALE = 30.f;
 
-	// Test
-	Block * block;
+	std::vector<Block *> m_blocks;
 
 	State m_gameState;
 	Menu * m_menu;
 	GameOver * m_gameOver;
 	sf::Vector2f m_centre;
 	sf::View m_camera;
-	const float CAM_SPEED = 8.0f;
+	float CAM_SPEED = 4.0f;
 	Player* m_player;
+	Collect* m_collect;
 
 	//std::unique_ptr<Timer> m_timer;
 	Timer * m_timer;
