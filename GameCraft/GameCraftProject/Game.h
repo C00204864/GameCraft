@@ -5,7 +5,9 @@
 #include <Box2D\Box2D.h>
 #include "Block.h"
 #include "MainMenuScreen.h"
+#include "Player.h"
 
+class Player;
 class Menu;
 
 enum State 
@@ -45,12 +47,10 @@ private:
 
 	State m_gameState;
 	Menu * m_menu;
-
-
-
 	sf::Vector2f m_centre;
 	sf::View m_camera;
 	const float CAM_SPEED = 8.0f;
+	Player* m_player;
 };
 
 #endif // !GAME_H
