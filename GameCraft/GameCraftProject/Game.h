@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include "Player.h"
+
+class Player;
 
 class Game
 {
@@ -26,6 +29,8 @@ private:
 	// Box2D
 	b2Vec2 m_gravity;
 	b2World m_world;
+
+	Player* m_player;
 };
 
 #endif // !GAME_H

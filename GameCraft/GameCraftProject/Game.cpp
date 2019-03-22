@@ -9,7 +9,7 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
-
+	m_player = new Player();
 }
 
 /// <summary>
@@ -74,6 +74,7 @@ void Game::update(sf::Time t_deltaTime)
 	else
 	{
 		m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+		m_player->update();
 	}
 }
 
@@ -82,5 +83,7 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::Black);
+	m_window.clear(sf::Color::White);
+	m_player->draw(m_window);
+	m_window.display();
 }
