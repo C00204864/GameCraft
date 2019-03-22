@@ -28,6 +28,9 @@ private:
 	b2Vec2 m_gravity;
 	b2World m_world;
 	const float WORLD_SCALE = 30.f;
+
+	// Test
+	Block * block;
 };
 
 #endif // !GAME_H

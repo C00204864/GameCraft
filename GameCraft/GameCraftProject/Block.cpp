@@ -13,10 +13,15 @@ Block::Block(b2World & world, float x, float y, const float SCALE)
 	m_fixtureDef.shape = &m_shape;
 	m_body->CreateFixture(&m_fixtureDef);
 	m_body->SetFixedRotation(true);
-	if (!m_texture.loadFromFile("")) // TBI
+	if (!m_texture.loadFromFile("TestSquare.png")) // TBI
 	{
 		std::cout << "Error: Could not load block texture" << std::endl;
 	}
+	m_sprite.setTexture(m_texture);
+	m_sprite.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
+	sf::FloatRect bounds = m_sprite.getGlobalBounds();
+	float scaleX = bounds.width / WIDTH;
+	float scaleY = bounds.height / HEIGHT;
 }
 
 Block::~Block()
@@ -26,5 +31,5 @@ Block::~Block()
 
 void Block::render(sf::RenderWindow & window)
 {
-
+	window.draw(m_sprite);
 }

@@ -9,7 +9,7 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
-
+	block = new Block(m_world, 100, 100, WORLD_SCALE);
 }
 
 /// <summary>
@@ -83,5 +83,5 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::Black);
-	m_window.display();
+	block->render(m_window);
 }

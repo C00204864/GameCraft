@@ -2,6 +2,7 @@
 #define BLOCK_H
 
 #include <iostream>
+#include <string>
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
 
@@ -23,6 +24,10 @@ private:
 	b2BodyDef m_bodyDef;
 	b2PolygonShape m_shape;
 	b2FixtureDef m_fixtureDef;
+
+	// Constants
+	const float WIDTH = 150.f;
+	const float HEIGHT = 100.f;
 };
 
 #endif // !BLOCK_H
