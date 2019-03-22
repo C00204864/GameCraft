@@ -100,7 +100,7 @@ void Game::update(sf::Time t_deltaTime)
 			m_window.setView(m_window.getDefaultView());
 			break;
 		case State::Play:
-			m_timer->update(t_deltaTime.asMilliseconds());
+			m_timer->update(t_deltaTime.asMilliseconds(), m_centre.x);
 			m_mainView.setCenter(m_centre);
 			m_window.setView(m_mainView);
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world

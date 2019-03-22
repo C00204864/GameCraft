@@ -55,8 +55,9 @@ void Timer::reward(int t)
 	m_currentSec -= t;
 }
 
-void Timer::update(int dt)
+void Timer::update(int dt, float x)
 {
+
 	if (m_running)
 	{
 		if (m_currentMilli >= 1000)
@@ -78,6 +79,7 @@ void Timer::update(int dt)
 			m_display = "Timer: " + std::to_string(m_currentMin) + " : " + std::to_string(m_currentSec) + " : " + std::to_string(m_currentMilli);
 		}
 		m_text.setString(m_display);
+		m_text.setPosition(sf::Vector2f(x - 100.0f, 0));
 	}
 }
 

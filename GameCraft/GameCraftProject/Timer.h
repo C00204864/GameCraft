@@ -17,7 +17,7 @@ public:
 	void penalty(int t);
 	void reward(int t);
 
-	void update(int dt);
+	void update(int dt, float x);
 	void render(sf::RenderWindow & window);
 
 private:
