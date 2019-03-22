@@ -14,6 +14,9 @@ public:
 	sf::Vector2f getVelocity();
 	sf::Vector2f getPlayerPosition();
 
+	bool jumped = false;
+	float previousVelY = 0;
+
 	float Scale;
 
 private:

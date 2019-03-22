@@ -13,6 +13,7 @@ Game::Game() :
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+	m_run = new Animation("Running.png", 50, 64, 4);
 }
 
 /// <summary>
@@ -94,6 +95,7 @@ void Game::update(sf::Time t_deltaTime)
 		case State::Play:
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
 			m_player->update();
+			m_run->update();
 			break;
 		default:
 			break;
@@ -118,6 +120,7 @@ void Game::render()
 	case State::Play:
     block->render(m_window);
 	m_player->draw(m_window);
+	m_run->render(m_window);
 		break;
 	default:
 		break;

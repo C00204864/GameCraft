@@ -6,6 +6,7 @@
 #include "Block.h"
 #include "MainMenuScreen.h"
 #include "Player.h"
+#include "Animation.h"
 
 class Player;
 class Menu;
@@ -48,6 +49,7 @@ private:
 	State m_gameState;
 	Menu * m_menu;
 	Player* m_player;
+	Animation* m_run;
 };
 
 #endif // !GAME_H
