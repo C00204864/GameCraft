@@ -6,14 +6,17 @@
 #include "Block.h"
 #include "MainMenuScreen.h"
 #include "Player.h"
+#include "GameOver.h"
 
 class Player;
 class Menu;
+class GameOver;
 
 enum State 
 {
 	MainMenu,
-	Play
+	Play,
+	Over
 };
 
 class Game
@@ -47,6 +50,7 @@ private:
 
 	State m_gameState;
 	Menu * m_menu;
+	GameOver * m_gameOver;
 	sf::Vector2f m_centre;
 	sf::View m_camera;
 	const float CAM_SPEED = 8.0f;
