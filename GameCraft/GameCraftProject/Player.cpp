@@ -34,6 +34,7 @@ Player::Player(b2World & world, float x, float y, const float SCALE)
 	m_fixtureDef.shape = &m_shape;
 	m_body->CreateFixture(&m_fixtureDef);
 	m_body->SetFixedRotation(true);
+	m_body->SetGravityScale(4.0);
 	if (!m_texture.loadFromFile("TestSquare.png")) // TBI
 	{
 		std::cout << "Error: Could not load block texture" << std::endl;
@@ -75,17 +76,17 @@ void Player::update()
 	//Keyboard input to change velocity
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		if (velocity.x > -5)
+		if (velocity.x > -12)
 		{
-			velocity.x = velocity.x - 0.1;
+			velocity.x = velocity.x - 1;
 		}
 		//playerSprite.rotate(-0.1);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		if (velocity.x < 5)
+		if (velocity.x < 12)
 		{
-			velocity.x = velocity.x + 0.1;
+			velocity.x = velocity.x + 1;
 		}
 		//playerSprite.rotate(0.1);
 	}
@@ -95,15 +96,23 @@ void Player::update()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		velocity.y = -5;
-	}
-	else
-	{
-		if (velocity.y < 0)
+		if (jumped == false)
 		{
-			velocity.y = velocity.y + 0.1;
+			velocity.y = -25;
+			jumped = true;
 		}
 	}
+
+
+	if (m_body->GetLinearVelocity().y != 0)
+	{
+		velocity.y = velocity.y + 0.5;
+	}
+	if (velocity.y < 0.1 && velocity.y > -0.1)
+	{
+		//velocity.y = 0;
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		//if (speed > -1)
@@ -111,12 +120,16 @@ void Player::update()
 		//	speed = speed - 0.01;
 		//}
 	}
+	if (m_body->GetLinearVelocity().y == 0)
+	{
+		if (jumped == true)
+		{
+			jumped = false;
+			std::cout << "Called" << std::endl;
+		}
+	}
 
 
-	//Apply velocity
-	playerSprite.setPosition(m_body->GetPosition().x * Scale, m_body->GetPosition().y * Scale);
-	m_body->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
-	m_sprite.setPosition(m_body->GetPosition().x * Scale, m_body->GetPosition().y * Scale);
 
 
 	//Window borders
@@ -149,6 +162,11 @@ void Player::update()
 			velocity.y = 0;
 		}
 	}
+	previousVelY = velocity.y;
+	//Apply velocity
+	playerSprite.setPosition(m_body->GetPosition().x * Scale, m_body->GetPosition().y * Scale);
+	m_body->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
+	m_sprite.setPosition(m_body->GetPosition().x * Scale, m_body->GetPosition().y * Scale);
 }
 void Player::draw(sf::RenderWindow & window)
 {

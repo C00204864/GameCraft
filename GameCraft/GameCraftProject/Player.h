@@ -1,5 +1,4 @@
 #pragma once
-#include "Player.h"
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 
@@ -13,6 +12,9 @@ public:
 	float getNewOrientation(float currentOrientation, sf::Vector2f velocity);
 	sf::Vector2f getVelocity();
 	sf::Vector2f getPlayerPosition();
+
+	bool jumped = false;
+	float previousVelY = 0;
 
 	float Scale;
 
