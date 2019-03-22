@@ -20,8 +20,9 @@ Block::Block(b2World & world, float x, float y, const float SCALE)
 	m_sprite.setTexture(m_texture);
 	m_sprite.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
-	float scaleX = bounds.width / WIDTH;
-	float scaleY = bounds.height / HEIGHT;
+	float scaleX = WIDTH / bounds.width;
+	float scaleY = HEIGHT / bounds.height;
+	m_sprite.setScale(scaleX, scaleY);
 }
 
 Block::~Block()

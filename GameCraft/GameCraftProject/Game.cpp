@@ -9,7 +9,7 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
-	block = new Block(m_world, 100, 100, WORLD_SCALE);
+	block = new Block(m_world, 0, 0, WORLD_SCALE);
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 }
