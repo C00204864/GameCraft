@@ -20,6 +20,7 @@ Game::Game() :
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+	m_collect = new Collect(200, 200);
 	srand(time(NULL));
 	//m_timer = std::make_unique<Timer>(Timer());
 	m_timer = new Timer();
@@ -108,6 +109,7 @@ void Game::update(sf::Time t_deltaTime)
 			m_timer->update(t_deltaTime.asMilliseconds(), m_centre.x);
 			m_mainView.setCenter(m_centre);
 			m_window.setView(m_mainView);
+			m_collect->update();
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
 
 			if (true)
@@ -151,7 +153,8 @@ void Game::render()
 			b->render(m_window);
 		}
 		m_timer->render(m_window);
-		block->render(m_window);
+		//block->render(m_window);
+		m_collect->draw(m_window);
 		m_player->draw(m_window);
 		break;
 	default:

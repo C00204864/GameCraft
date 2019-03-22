@@ -12,6 +12,7 @@
 #define MAX_ITEMS 2  //the amount of menu options
 
 class Game;
+class Collect;
 
 //main menu of the game
 class Menu
@@ -39,6 +40,7 @@ private:
 	GUI m_gui; //gui
 	Game *m_game;
 	sf::RenderWindow &m_window;
+	Collect* m_collect;
 };
 
 #endif // !MENU

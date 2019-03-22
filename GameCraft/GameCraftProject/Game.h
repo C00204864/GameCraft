@@ -10,9 +10,11 @@
 #include "MainMenuScreen.h"
 #include "Player.h"
 #include "Timer.h"
+#include "Collect.h"
 
 class Player;
 class Menu;
+class Collect;
 
 enum State 
 {
@@ -54,6 +56,7 @@ private:
 	sf::View m_camera;
 	float CAM_SPEED = 4.0f;
 	Player* m_player;
+	Collect* m_collect;
 
 	//std::unique_ptr<Timer> m_timer;
 	Timer * m_timer;
