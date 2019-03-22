@@ -121,6 +121,7 @@
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RadioButton.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Widget.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="GUI.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MainMenuScreen.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RadioButton.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Widget.h" />
