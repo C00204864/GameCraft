@@ -16,12 +16,12 @@ Player::Player(b2World & world, float x, float y, const float SCALE)
 	playerCircle.setFillColor(sf::Color::Black);
 	playerSprite.setPosition(x, y);
 
-	if (!playerTexture.loadFromFile("man.jpg"))
+	if (!playerTexture.loadFromFile("running.png"))
 	{
 		// Error...
 	}
 	Scale = SCALE;
-	playerSprite.setScale(0.5f, 0.5f);
+	playerSprite.setScale(2.0f, 2.0f);
 	playerSprite.setTexture(playerTexture);
 
 	m_bodyDef.position = b2Vec2(x / SCALE, y / SCALE);
@@ -66,6 +66,36 @@ sf::Vector2f Player::getVelocity()
 
 void Player::update()
 {
+	if (aniCount == 0)
+	{
+	playerSprite.setTextureRect(sf::IntRect(0, 0, 54, 64));
+	}
+	else if (aniCount == 10)
+	{
+	playerSprite.setTextureRect(sf::IntRect(54, 0, 52, 64));
+
+	}
+	else if (aniCount == 20)
+	{
+	playerSprite.setTextureRect(sf::IntRect(106, 0, 49, 64));
+	}
+	else if (aniCount == 30)
+	{
+	playerSprite.setTextureRect(sf::IntRect(155, 0, 45, 64));
+	}
+	else if (aniCount == 40)
+	{
+		playerSprite.setTextureRect(sf::IntRect(106, 0, 49, 64));
+	}
+	else if (aniCount == 50)
+	{
+		playerSprite.setTextureRect(sf::IntRect(54, 0, 52, 64));
+	}
+	aniCount = aniCount + 1;
+	if (aniCount == 60)
+	{
+		aniCount = 0;
+	}
 	//orientation = getNewOrientation(orientation,velocity);
 
 	//if (playerSprite.getRotation() >= orientation + 1 || playerSprite.getRotation() <= orientation -1)
@@ -131,12 +161,12 @@ void Player::update()
 	}
 	previousVelY = velocity.y;
 	//Apply velocity
-	playerSprite.setPosition(m_body->GetPosition().x * Scale - WIDTH / 2, m_body->GetPosition().y * Scale - HEIGHT / 2);
+	playerSprite.setPosition(m_body->GetPosition().x * Scale - WIDTH / 2, (m_body->GetPosition().y * Scale - HEIGHT / 2) + 34);
 	m_body->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
 	m_sprite.setPosition(m_body->GetPosition().x * Scale - WIDTH / 2, m_body->GetPosition().y * Scale - HEIGHT / 2);
 }
 void Player::draw(sf::RenderWindow & window)
 {
-	window.draw(m_sprite);
+	//window.draw(m_sprite);
 	window.draw(playerSprite);
 }
