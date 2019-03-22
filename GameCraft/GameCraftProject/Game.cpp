@@ -168,6 +168,7 @@ void Game::update(sf::Time t_deltaTime)
 				//std::cout << "Offscreen" << std::endl;
 				m_bgSprite.setPosition(0, 0);
 				m_bgSprite2.setPosition(m_bgTexture.getSize().x * 0.7f, 0);
+				m_moved = 1;
 				m_gameState = State::Over;
 				m_window.setView(m_window.getDefaultView());
 				m_mainView = m_window.getView();
