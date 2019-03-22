@@ -6,6 +6,7 @@
 #include "Block.h"
 #include "MainMenuScreen.h"
 #include "Player.h"
+#include "Timer.h"
 
 class Player;
 class Menu;
@@ -51,6 +52,9 @@ private:
 	sf::View m_camera;
 	const float CAM_SPEED = 8.0f;
 	Player* m_player;
+
+	//std::unique_ptr<Timer> m_timer;
+	Timer * m_timer;
 };
 
 #endif // !GAME_H

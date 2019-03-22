@@ -17,6 +17,9 @@ Game::Game() :
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+	//m_timer = std::make_unique<Timer>(Timer());
+	m_timer = new Timer();
+	m_timer->start();
 }
 
 /// <summary>
@@ -97,6 +100,7 @@ void Game::update(sf::Time t_deltaTime)
 			m_window.setView(m_window.getDefaultView());
 			break;
 		case State::Play:
+			m_timer->update(t_deltaTime.asMilliseconds());
 			m_mainView.setCenter(m_centre);
 			m_window.setView(m_mainView);
 			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
@@ -125,8 +129,9 @@ void Game::render()
 		m_menu->draw();
 		break;
 	case State::Play:
-    block->render(m_window);
-	m_player->draw(m_window);
+		m_timer->render(m_window);
+		block->render(m_window);
+		m_player->draw(m_window);
 		break;
 	default:
 		break;
