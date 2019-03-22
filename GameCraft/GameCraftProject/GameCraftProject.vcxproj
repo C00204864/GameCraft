@@ -125,6 +125,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RadioButton.cpp" />
     <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="XBOX360CONTROLLER.cpp" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RadioButton.h" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="XBOX360CONTROLLER.h" />
   </ItemGroup>
