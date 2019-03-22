@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include "Block.h"
 
 class Game
 {
@@ -26,6 +27,7 @@ private:
 	// Box2D
 	b2Vec2 m_gravity;
 	b2World m_world;
+	const float WORLD_SCALE = 30.f;
 };
 
 #endif // !GAME_H
