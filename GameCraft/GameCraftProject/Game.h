@@ -53,6 +53,9 @@ private:
 	sf::Vector2f m_centre;
 	sf::View m_camera;
 	float CAM_SPEED = 4.0f;
+	float maxCamSpeed = 5.f;
+	float baseDistance = 500.f;
+	float maxDistance = 750.f;
 	Player* m_player;
 
 	//std::unique_ptr<Timer> m_timer;
