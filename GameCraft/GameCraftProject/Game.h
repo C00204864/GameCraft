@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 
+// Remove
+#include "Animation.h"
+
 class Game
 {
 public:
@@ -26,6 +29,10 @@ private:
 	// Box2D
 	b2Vec2 m_gravity;
 	b2World m_world;
+
+	// Testing Animation
+	// If this makes it to the master , please delete
+	Animation walk;
 };
 
 #endif // !GAME_H

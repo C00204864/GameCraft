@@ -9,7 +9,8 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
-
+	// Delete anime
+	walk = Animation("Assets/Running.png", 50, 64, 20, 4);
 }
 
 /// <summary>
@@ -74,6 +75,7 @@ void Game::update(sf::Time t_deltaTime)
 	else
 	{
 		m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+		walk.update(sf::Vector2f(20, 50));
 	}
 }
 
@@ -83,4 +85,6 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::Black);
+	walk.render(m_window);
+	m_window.display();
 }
