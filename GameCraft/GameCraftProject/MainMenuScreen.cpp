@@ -23,7 +23,7 @@ Menu::Menu(float width, float height, Game & game, sf::RenderWindow &window) :
 	m_widgets[0]->updateFocusColor(sf::Color(0, 255, 0, 255));
 	m_widgets[1]->updateFocusColor(sf::Color(0, 255, 0, 255));
 
-	if (!m_texture.loadFromFile("Assets\\Images\\background.png"))
+	if (!m_texture.loadFromFile("Assets\\Images\\background.jpg"))
 	{
 		//handle
 	}
@@ -33,6 +33,7 @@ Menu::Menu(float width, float height, Game & game, sf::RenderWindow &window) :
 
 	m_background.setTexture(m_texture);
 	m_background.setPosition(0, 0);
+	m_background.setScale(1.3f, 1.5f);
 
 	//add ui elements to gui
 	for (auto & var : m_widgets)

@@ -52,9 +52,14 @@ private:
 	sf::View m_camera;
 	const float CAM_SPEED = 8.0f;
 	Player* m_player;
-
-	//std::unique_ptr<Timer> m_timer;
 	Timer * m_timer;
+
+	// Background
+	sf::Texture m_bgTexture;
+	sf::Texture m_bgTexture2;
+	sf::Sprite m_bgSprite;
+	sf::Sprite m_bgSprite2;
+	int m_moved;
 };
 
 #endif // !GAME_H
