@@ -18,7 +18,7 @@ Block::Block(b2World & world, float x, float y, const float SCALE)
 		std::cout << "Error: Could not load block texture" << std::endl;
 	}
 	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
+	m_sprite.setPosition(m_body->GetPosition().x * SCALE - WIDTH / 2, m_body->GetPosition().y * SCALE - HEIGHT / 2);
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 	float scaleX = WIDTH / bounds.width;
 	float scaleY = HEIGHT / bounds.height;

@@ -40,11 +40,12 @@ Player::Player(b2World & world, float x, float y, const float SCALE)
 		std::cout << "Error: Could not load block texture" << std::endl;
 	}
 	m_sprite.setTexture(m_texture);
-	m_sprite.setPosition(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE);
+
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 	float scaleX = WIDTH / bounds.width;
 	float scaleY = HEIGHT / bounds.height;
 	m_sprite.setScale(scaleX, scaleY);
+	m_sprite.setPosition(m_body->GetPosition().x * SCALE - WIDTH /2, m_body->GetPosition().y * SCALE - HEIGHT / 2);
 }
 
 Player::~Player()
@@ -164,9 +165,9 @@ void Player::update()
 	}
 	previousVelY = velocity.y;
 	//Apply velocity
-	playerSprite.setPosition(m_body->GetPosition().x * Scale, m_body->GetPosition().y * Scale);
+	playerSprite.setPosition(m_body->GetPosition().x * Scale - WIDTH / 2, m_body->GetPosition().y * Scale - HEIGHT / 2);
 	m_body->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
-	m_sprite.setPosition(m_body->GetPosition().x * Scale, m_body->GetPosition().y * Scale);
+	m_sprite.setPosition(m_body->GetPosition().x * Scale - WIDTH / 2, m_body->GetPosition().y * Scale - HEIGHT / 2);
 }
 void Player::draw(sf::RenderWindow & window)
 {
