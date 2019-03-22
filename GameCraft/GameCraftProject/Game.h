@@ -6,6 +6,9 @@
 #include "Block.h"
 #include "MainMenuScreen.h"
 #include "Player.h"
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>
 
 class Player;
 class Menu;
@@ -43,7 +46,10 @@ private:
 	const float WORLD_SCALE = 30.f;
 
 	// Test
-	Block * block;
+	//Block * block;
+
+	std::vector<Block *> m_blocks;
+
 
 	State m_gameState;
 	Menu * m_menu;

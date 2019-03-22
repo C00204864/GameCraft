@@ -6,7 +6,7 @@ Block::Block(b2World & world, float x, float y, const float SCALE)
 	m_bodyDef.position = b2Vec2(x / SCALE, y / SCALE);
 	m_bodyDef.type = b2_staticBody;
 	m_body = world.CreateBody(&m_bodyDef);
-	m_shape.SetAsBox((150.f / 2) / SCALE, (100.f / 2) / SCALE);
+	m_shape.SetAsBox((250.f / 2) / SCALE, (100.f / 2) / SCALE);
 	m_fixtureDef.density = 1.f;
 	m_fixtureDef.friction = 0.1f;
 	m_fixtureDef.restitution = 0.0f;
@@ -33,4 +33,9 @@ Block::~Block()
 void Block::render(sf::RenderWindow & window)
 {
 	window.draw(m_sprite);
+}
+
+sf::Vector2f Block::getPosition()
+{
+	return m_sprite.getPosition();
 }

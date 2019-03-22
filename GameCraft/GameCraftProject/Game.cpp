@@ -7,16 +7,24 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1280, 720, 32 }, "GameCraft" },
 	m_exitGame{ false },
 	m_gravity{ 0, 90.81 },
-	m_world{ m_gravity }// When true game will exit
+	m_world{ m_gravity } // When true game will exit
 {
 	m_mainView = m_window.getView();
 	m_centre = m_window.getView().getCenter();
 	m_mainView.setCenter(m_centre);
 	m_window.setView(m_mainView);
-	block = new Block(m_world, 400, 400, WORLD_SCALE);
+	//block = new Block(m_world, 0, 400, WORLD_SCALE);
+
+	for (int i = 0; i < 10; i++)
+	{
+		m_blocks.push_back(new Block(m_world,(500 * i),400, WORLD_SCALE));
+	}
+	
+
 	m_gameState = State::MainMenu;
 	m_menu = new Menu(1280, 720, *this, m_window);
 	m_player = new Player(m_world, 400, 200, WORLD_SCALE);
+	srand(time(NULL));
 }
 
 /// <summary>
@@ -105,6 +113,27 @@ void Game::update(sf::Time t_deltaTime)
 				m_centre.x += CAM_SPEED;
 			}
 			m_player->update();
+
+
+			for (int i = 0; i < m_blocks.size(); i++)
+			{
+				if (m_blocks.at(i)->getPosition().x < m_centre.x - (1280 / 2) - 250)
+				{
+					m_blocks.at(i)->~Block();
+					m_blocks.erase(std::remove(m_blocks.begin(), m_blocks.end(), m_blocks.at(i)), m_blocks.end());
+					int random = rand() % 200 - 1;
+					random -= 100;
+					m_blocks.push_back(new Block(m_world, m_blocks.at(m_blocks.size()-1)->getPosition().x + 500, 400 + random, WORLD_SCALE));
+				}
+			}
+			//for (auto & b : m_blocks)
+			//{
+			//	if (b->getPosition().x < m_centre.x - (1280 / 2))
+			//	{
+			//		b->~Block();
+			//	}
+			//}
+
 			break;
 		default:
 			break;
@@ -127,8 +156,12 @@ void Game::render()
 		m_menu->draw();
 		break;
 	case State::Play:
-    block->render(m_window);
-	m_player->draw(m_window);
+		for (auto &b : m_blocks)
+		{
+			b->render(m_window);
+		}
+    
+		m_player->draw(m_window);
 		break;
 	default:
 		break;

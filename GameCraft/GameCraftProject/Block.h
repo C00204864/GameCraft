@@ -12,6 +12,7 @@ public:
 	Block(b2World & world, float x, float y, const float SCALE);
 	~Block();
 	void render(sf::RenderWindow & window);
+	sf::Vector2f getPosition();
 private:
 	// SFML Sprite
 	sf::Texture m_texture;
@@ -26,7 +27,7 @@ private:
 	b2FixtureDef m_fixtureDef;
 
 	// Constants
-	const float WIDTH = 150.f;
+	const float WIDTH = 250.f;
 	const float HEIGHT = 100.f;
 };
 
