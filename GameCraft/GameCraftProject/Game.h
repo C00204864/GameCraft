@@ -4,6 +4,15 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include "Block.h"
+#include "MainMenuScreen.h"
+
+class Menu;
+
+enum State 
+{
+	MainMenu,
+	Play
+};
 
 class Game
 {
@@ -12,6 +21,8 @@ public:
 	Game();
 	~Game();
 	void run();
+	void setGameState(State state);
+	void endGame();
 private:
 	// Private Methods
 	void processEvents();
@@ -31,6 +42,9 @@ private:
 
 	// Test
 	Block * block;
+
+	State m_gameState;
+	Menu * m_menu;
 };
 
 #endif // !GAME_H
