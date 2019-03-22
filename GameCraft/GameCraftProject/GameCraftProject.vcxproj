@@ -113,13 +113,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="main.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Player.cpp" />
+=======
+    <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="RadioButton.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="XBOX360CONTROLLER.cpp" />
+>>>>>>> 83154645c3f2c7e9f9185d602dbfcbc4fa5d0f93
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Game.h" />
+<<<<<<< HEAD
     <ClInclude Include="Player.h" />
+=======
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="MainMenuScreen.h" />
+    <ClInclude Include="RadioButton.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Widget.h" />
+    <ClInclude Include="XBOX360CONTROLLER.h" />
+>>>>>>> 83154645c3f2c7e9f9185d602dbfcbc4fa5d0f93
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

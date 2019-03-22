@@ -9,7 +9,13 @@ Game::Game() :
 	m_gravity{ 0, 90.81 },
 	m_world{ m_gravity }// When true game will exit
 {
+<<<<<<< HEAD
 	m_player = new Player();
+=======
+	block = new Block(m_world, 100, 100, WORLD_SCALE);
+	m_gameState = State::MainMenu;
+	m_menu = new Menu(1280, 720, *this, m_window);
+>>>>>>> 83154645c3f2c7e9f9185d602dbfcbc4fa5d0f93
 }
 
 /// <summary>
@@ -37,6 +43,16 @@ void Game::run()
 		}
 		render(); // As many as possible
 	}
+}
+
+void Game::setGameState(State state)
+{
+	m_gameState = state;
+}
+
+void Game::endGame()
+{
+	m_exitGame = true;
 }
 
 /// <summary>
@@ -73,8 +89,25 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	else
 	{
+<<<<<<< HEAD
 		m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
 		m_player->update();
+=======
+		switch (m_gameState)
+		{
+		case State::MainMenu:
+			m_menu->update();
+			break;
+		case State::Play:
+			m_world.Step(1 / 60.f, 10, 5); // Update the Box2d world
+			break;
+		default:
+			break;
+		}
+
+
+		
+>>>>>>> 83154645c3f2c7e9f9185d602dbfcbc4fa5d0f93
 	}
 }
 
@@ -83,7 +116,22 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
+<<<<<<< HEAD
 	m_window.clear(sf::Color::White);
 	m_player->draw(m_window);
+=======
+	m_window.clear(sf::Color::Black);
+	switch (m_gameState)
+	{
+	case State::MainMenu:
+		m_menu->draw();
+		break;
+	case State::Play:
+    block->render(m_window);
+		break;
+	default:
+		break;
+	}
+>>>>>>> 83154645c3f2c7e9f9185d602dbfcbc4fa5d0f93
 	m_window.display();
 }
