@@ -13,6 +13,8 @@
 #include "GameOver.h"
 #include "Collect.h"
 
+#include <thread>
+
 class Player;
 class Menu;
 class GameOver;
@@ -74,6 +76,14 @@ private:
 	sf::Sprite m_bgSprite;
 	sf::Sprite m_bgSprite2;
 	int m_moved;
+
+	std::vector<std::thread> m_threads;
+
+	void drawTimer();
+	void drawBlocks();
+	void drawPlayer();
+	void drawCollect();
+	void runGame();
 };
 
 #endif // !GAME_H

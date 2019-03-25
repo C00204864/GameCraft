@@ -156,7 +156,6 @@ void Player::update()
 		if (jumped == true)
 		{
 			jumped = false;
-			std::cout << "Called" << std::endl;
 		}
 	}
 	previousVelY = velocity.y;

@@ -52,6 +52,21 @@ Game::Game() :
 	m_bgSprite2.setScale(0.7f, 0.7f);
 	m_moved = 1;
 
+	//m_threads.push_back(std::thread(&Timer::render, m_timer, m_window));
+	//for (auto &b : m_blocks)
+	//{
+	//	m_threads.push_back(std::thread(&Block::render, b, m_window));
+	//}
+	//m_threads.push_back(std::thread(&Collect::draw, m_collect, m_window));
+	//m_threads.push_back(std::thread(&Player::draw, m_player, m_window));
+
+	//m_threads.push_back(std::thread(&Game::drawTimer, this));
+	//m_threads.push_back(std::thread(&Game::drawBlocks, this));
+	//m_threads.push_back(std::thread(&Game::drawPlayer, this));
+	//m_threads.push_back(std::thread(&Game::drawCollect, this));
+
+	//
+
 }
 
 /// <summary>
@@ -64,10 +79,27 @@ Game::~Game() {}
 /// </summary>
 void Game::run()
 {
+	m_window.setActive(false);
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
-	while (m_window.isOpen())
+
+	//m_threads.push_back(std::thread(&Game::render, this));
+	//m_threads.at(0).join();
+
+	std::thread t2 = std::thread(&Game::runGame, this);
+
+	std::thread t1 = std::thread(&Game::render, this);
+	t2.join();
+	t1.join();
+}
+
+void Game::runGame() 
+{
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
+	while (true)
 	{
 		processEvents(); // As many as possible
 		timeSinceLastUpdate += clock.restart();
@@ -77,7 +109,8 @@ void Game::run()
 			processEvents(); // At least 60 fps
 			update(timePerFrame); // 60 fps
 		}
-		render(); // As many as possible
+		//std::thread t = std::thread(&Game::render, this);
+		//t.join();
 	}
 }
 
@@ -224,29 +257,57 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::Black);
-	switch (m_gameState)
+	while (true)
 	{
-	case State::MainMenu:
-		m_menu->draw();
-		break;
-	case State::Play:
-		m_window.draw(m_bgSprite);
-		m_window.draw(m_bgSprite2);
-		m_timer->render(m_window);
-		for (auto &b : m_blocks)
+		m_window.setActive(true);
+		m_window.clear(sf::Color::Black);
+		switch (m_gameState)
 		{
-			b->render(m_window);
+		case State::MainMenu:
+			m_menu->draw();
+			break;
+		case State::Play:
+			m_window.draw(m_bgSprite);
+			m_window.draw(m_bgSprite2);
+			//for (int i = 0; i < m_threads.size(); i++)
+			//{
+			//	m_threads[i].join();
+			//}
+			drawTimer();
+			drawBlocks();
+			drawPlayer();
+			drawCollect();
+			break;
+		case State::Over:
+			m_gameOver->draw();
+			break;
+		default:
+			break;
 		}
-		m_timer->render(m_window);
-		m_collect->draw(m_window);
-		m_player->draw(m_window);
-		break;
-	case State::Over:
-		m_gameOver->draw();
-		break;
-	default:
-		break;
+		m_window.display();
+		m_window.setActive(false);
 	}
-	m_window.display();
 }
+
+
+void Game::drawTimer()
+{
+	m_timer->render(m_window);
+}
+
+void Game::drawBlocks()
+{
+	for (auto &b : m_blocks)
+	{
+		b->render(m_window);
+	}
+}
+
+void Game::drawPlayer()
+{
+	m_player->draw(m_window);
+};
+void Game::drawCollect()
+{
+	m_collect->draw(m_window);
+};

@@ -53,7 +53,6 @@ void GameOver::draw()
 void GameOver::update(Timer timer)
 {
 	m_gui.update(m_selectedItemIndex, MAX_ITEMS);
-	std::cout << timer.getTime() << std::endl;
 	m_label.updateText("Game Over: " + std::to_string(timer.getTime()));
 	m_xbox.update();
 }
