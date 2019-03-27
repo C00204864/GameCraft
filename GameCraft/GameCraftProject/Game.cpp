@@ -80,18 +80,7 @@ Game::~Game() {}
 void Game::run()
 {
 	m_window.setActive(false);
-	sf::Clock clock;
-	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
-
-	//m_threads.push_back(std::thread(&Game::render, this));
-	//m_threads.at(0).join();
-
-	std::thread t2 = std::thread(&Game::runGame, this);
-
-	std::thread t1 = std::thread(&Game::render, this);
-	t2.join();
-	t1.join();
+	runGame();
 }
 
 void Game::runGame() 
@@ -107,10 +96,12 @@ void Game::runGame()
 		{
 			timeSinceLastUpdate -= timePerFrame;
 			processEvents(); // At least 60 fps
-			update(timePerFrame); // 60 fps
+			//update(timePerFrame); // 60 fps
+			std::thread updateThread = std::thread(&Game::update, this, timePerFrame);
+			updateThread.join();
 		}
-		//std::thread t = std::thread(&Game::render, this);
-		//t.join();
+		std::thread renderThread = std::thread(&Game::render, this);
+		renderThread.join();
 	}
 }
 
@@ -152,6 +143,7 @@ void Game::processEvents()
 /// <param name="t_deltaTime">deltatime</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	mtx.lock();
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -250,6 +242,7 @@ void Game::update(sf::Time t_deltaTime)
 		}
 
 	}
+	mtx.unlock();
 }
 
 /// <summary>
@@ -257,9 +250,12 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	while (true)
-	{
-		m_window.setActive(true);
+	mtx.lock();
+	sf::Context context;
+		//m_window.setActive(true);
+		//while (!m_window.setActive(true))
+		//{
+		//}
 		m_window.clear(sf::Color::Black);
 		switch (m_gameState)
 		{
@@ -286,7 +282,7 @@ void Game::render()
 		}
 		m_window.display();
 		m_window.setActive(false);
-	}
+		mtx.unlock();
 }
 
 

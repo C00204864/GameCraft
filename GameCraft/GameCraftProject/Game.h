@@ -14,6 +14,7 @@
 #include "Collect.h"
 
 #include <thread>
+#include <mutex>
 
 class Player;
 class Menu;
@@ -78,6 +79,7 @@ private:
 	int m_moved;
 
 	std::vector<std::thread> m_threads;
+	std::mutex mtx;
 
 	void drawTimer();
 	void drawBlocks();
