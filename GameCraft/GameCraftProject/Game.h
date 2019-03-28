@@ -14,6 +14,7 @@
 #include "Collect.h"
 
 #include <thread>
+#include "ThreadPool.h"
 
 class Player;
 class Menu;
@@ -77,7 +78,17 @@ private:
 	sf::Sprite m_bgSprite2;
 	int m_moved;
 
+	//Threads
 	std::vector<std::thread> m_threads;
+	ThreadPool m_pool;
+	std::mutex drawMtx;
+	
+	void setView();
+	void moveBG();
+	void onScreen(sf::Time t_deltaTime);
+	sf::Vector2f m_playerPos;
+
+
 
 	void drawTimer();
 	void drawBlocks();

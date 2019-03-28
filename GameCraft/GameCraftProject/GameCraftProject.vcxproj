@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SFML_SDK)\include;..\GameCraft\GameCraftProject\Box2D\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\ctpl;$(CTPL_SDK);$(SFML_SDK)\include;..\GameCraft\GameCraftProject\Box2D\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SFML_SDK)\lib\;.\GameCraftProject\Box2D\lib\x86_64\dbg\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -145,6 +145,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RadioButton.h" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="XBOX360CONTROLLER.h" />
