@@ -15,12 +15,12 @@
 
 #include <thread>
 #include <mutex>
+#include "ThreadPool.h"
 
 class Player;
 class Menu;
 class GameOver;
 class Collect;
-
 
 enum State 
 {
@@ -80,12 +80,12 @@ private:
 
 	std::vector<std::thread> m_threads;
 	std::mutex mtx;
+	ThreadPool m_pool;
 
 	void drawTimer();
 	void drawBlocks();
 	void drawPlayer();
 	void drawCollect();
-	void runGame();
 };
 
 #endif // !GAME_H

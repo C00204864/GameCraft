@@ -145,6 +145,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RadioButton.h" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="XBOX360CONTROLLER.h" />

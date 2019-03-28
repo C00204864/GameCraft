@@ -7,7 +7,8 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1280, 720, 32 }, "GameCraft" },
 	m_exitGame{ false },
 	m_gravity{ 0, 90.81 },
-	m_world{ m_gravity }// When true game will exit
+	m_world{ m_gravity },// When true game will exit
+	m_pool(2)
 {
 	m_mainView = m_window.getView();
 	m_centre = m_window.getView().getCenter();
@@ -79,29 +80,19 @@ Game::~Game() {}
 /// </summary>
 void Game::run()
 {
-	m_window.setActive(false);
-	runGame();
-}
-
-void Game::runGame() 
-{
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.f / 60.f); // 60 fps
 	while (true)
 	{
-		processEvents(); // As many as possible
+		m_pool.enqueue(&Game::processEvents, this);
 		timeSinceLastUpdate += clock.restart();
 		while (timeSinceLastUpdate > timePerFrame)
 		{
 			timeSinceLastUpdate -= timePerFrame;
-			processEvents(); // At least 60 fps
-			//update(timePerFrame); // 60 fps
-			std::thread updateThread = std::thread(&Game::update, this, timePerFrame);
-			updateThread.join();
+			m_pool.enqueue(&Game::update, this, timePerFrame);
 		}
-		std::thread renderThread = std::thread(&Game::render, this);
-		renderThread.join();
+		render();
 	}
 }
 
@@ -151,7 +142,6 @@ void Game::update(sf::Time t_deltaTime)
 	else
 	{
 		auto playerPos = m_player->getPlayerPosition();
-		//CAM_SPEED += 0.001f;
 		switch (m_gameState)
 		{
 		case State::MainMenu:
@@ -190,7 +180,6 @@ void Game::update(sf::Time t_deltaTime)
 				|| playerPos.x > m_centre.x + 640)
 			{
 				// Offscreen
-				//std::cout << "Offscreen" << std::endl;
 				m_bgSprite.setPosition(0, 0);
 				m_bgSprite2.setPosition(m_bgTexture.getSize().x * 0.7f, 0);
 				m_moved = 1;
@@ -252,37 +241,29 @@ void Game::render()
 {
 	mtx.lock();
 	sf::Context context;
-		//m_window.setActive(true);
-		//while (!m_window.setActive(true))
-		//{
-		//}
-		m_window.clear(sf::Color::Black);
-		switch (m_gameState)
-		{
-		case State::MainMenu:
-			m_menu->draw();
-			break;
-		case State::Play:
-			m_window.draw(m_bgSprite);
-			m_window.draw(m_bgSprite2);
-			//for (int i = 0; i < m_threads.size(); i++)
-			//{
-			//	m_threads[i].join();
-			//}
-			drawTimer();
-			drawBlocks();
-			drawPlayer();
-			drawCollect();
-			break;
-		case State::Over:
-			m_gameOver->draw();
-			break;
-		default:
-			break;
-		}
-		m_window.display();
-		m_window.setActive(false);
-		mtx.unlock();
+	m_window.clear(sf::Color::Black);
+	switch (m_gameState)
+	{
+	case State::MainMenu:
+		m_menu->draw();
+		break;
+	case State::Play:
+		m_window.draw(m_bgSprite);
+		m_window.draw(m_bgSprite2);
+		drawTimer();
+		drawBlocks();
+		drawPlayer();
+		drawCollect();
+		break;
+	case State::Over:
+		m_gameOver->draw();
+		break;
+	default:
+		break;
+	}
+	m_window.display();
+	m_window.setActive(false);
+	mtx.unlock();
 }
 
 

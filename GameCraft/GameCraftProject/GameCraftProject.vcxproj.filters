@@ -36,5 +36,6 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Collect.h" />
+    <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
 </Project>
